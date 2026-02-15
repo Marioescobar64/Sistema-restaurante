@@ -45,4 +45,4 @@ menuSchema.index({ saucerName: 1, isActive: 1  });
  
 
 // exportamos el modelo con el nombre Field
-export default mongoose.model('Administration', menuSchema)
+export default mongoose.model('Menu', menuSchema)
