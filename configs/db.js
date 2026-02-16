@@ -21,7 +21,7 @@ export const dbConnection = async () => {
     });
 
     mongoose.connection.on('open', () => {
-      console.log('MongoDB | conectado a la base de datos SISTEMA-BANCARIO');
+      console.log('MongoDB | conectado a la base de datos SISTEMA-RESTAURANTE');
     });
 
     mongoose.connection.on('reconnected', () => {
