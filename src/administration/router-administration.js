@@ -1,52 +1,72 @@
-// importar las dependencias
-import { Router } from "express";
+import { Router } from 'express';
 import {
   getAdministrations,
-  createAdministration,
   getAdministrationById,
+  createAdministration,
   updateAdministration,
   changeAdministrationStatus,
-} from "./controller-administration.js";
+} from './controller-administration.js';
 
 import {
   validateCreateAdministration,
-  validateUpdateAdministrationRequest,
+  validateUpdateAdministration,
   validateAdministrationStatusChange,
   validateGetAdministrationById,
-} from "../../middlewares/administration-validation.js";
+} from '../../middlewares/validation-administration.js';
 
-import { uploadAdministrationImage } from "../../middlewares/file-update.js";
+import { uploadFieldImage } from '../../middlewares/file-uploader.js';
+import { cleanupUploadedFileOnFinish } from '../../middlewares/delete-file-on-error.js';
 
 const router = Router();
 
-// Rutas Get
-router.get('/', getAdministrations);
-router.get('/:id', validateGetAdministrationById, getAdministrationById);
+// ====================
+// RUTAS GET
+// ====================
 
-// rutas Post
+// Obtener todos los restaurantes
+router.get('/', getAdministrations);
+
+// Obtener restaurante por ID
+router.get(
+  '/:id',
+  validateGetAdministrationById,
+  getAdministrationById
+);
+
+// ====================
+// RUTAS POST
+// ====================
+
+// Crear restaurante
 router.post(
   '/',
-  uploadAdministrationImage.single('photo'),
+  uploadFieldImage.single('photo'), // campo del form-data: photo
+  cleanupUploadedFileOnFinish,
   validateCreateAdministration,
   createAdministration
 );
 
-// Rutas Put
+// ====================
+// RUTAS PUT
+// ====================
+
+// Actualizar restaurante
 router.put(
   '/:id',
-  uploadAdministrationImage.single('photo'),
-  validateUpdateAdministrationRequest,
+  uploadFieldImage.single('photo'),
+  validateUpdateAdministration,
   updateAdministration
 );
 
-// Activar / desactivar sin borrar
-router.patch(
+// Activar restaurante
+router.put(
   '/:id/activate',
   validateAdministrationStatusChange,
   changeAdministrationStatus
 );
 
-router.patch(
+// Desactivar restaurante
+router.put(
   '/:id/deactivate',
   validateAdministrationStatusChange,
   changeAdministrationStatus

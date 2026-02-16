@@ -11,21 +11,18 @@ const administrationSchema = new mongoose.Schema({
     },
     categoryType: {
         type: String,
-        required: [true, 'El tipo de campo es requerido'],
+        required: [true, 'El tipo de categoria es requerido'],
         enum: {
             values: ['Familiar, Romantico, general'],
-            message: 'Tipo de superficie no valida',
+            message: 'Tipo de cateogria no valida',
         },
     },
     // es la capacidad de personas sin incluir al personal en el restaurante
     capacity: {
-        type: String,
+        type: Number,
         required: [true, 'La capacidad es requerida'],
-        enum: {
-        message: 'Capacidad no válida',
-        },
+        min: [1, 'La capacidad debe ser mayor a 0'],
     },   
-     
     photo: {
     type: String,
     // valor por defecto

@@ -8,8 +8,7 @@ import { corsOptions } from './cors-configuration.js';
 import { dbConnection } from './db.js';
 
 // Rutas
-
-// import contactoRoutes from '../src/administration/administration-routes.js'
+import administrationRoutes from '../src/administration/router-administration.js'
 
 const BASE_URL = '/papaluigi/v1';
 
@@ -26,7 +25,7 @@ const middlewares = (app) => {
 
 // Rutas de integracion de todas las rutas
 const routes =(app) => {
-    
+    app.use(`${BASE_URL}/administration`, administrationRoutes);
 }
 
 // funcion para iniciar el servidor

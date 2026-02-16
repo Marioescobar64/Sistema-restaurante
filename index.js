@@ -1,7 +1,6 @@
 // importaciones
-
 import dotenv from 'dotenv';
-import { initServer } from "./config/app.js";
+import { initServer } from "./configs/app.js";
 
 // Configuracion de variables de entorno
 dotenv.config();
