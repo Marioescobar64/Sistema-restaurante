@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-import { validateFields } from "../middlewares/check-validation"; // ruta correcta según tu estructura
+import { checkValidators } from "./check-validation.js"; // ruta correcta según tu estructura
 
 // Validar creación de menú
 export const validateCreateMenu = [
@@ -15,11 +15,11 @@ export const validateCreateMenu = [
     .optional()
     .isString()
     .withMessage("La descripción debe ser texto"),
-  validateFields,
+  checkValidators,
 ];
 
 // Validar actualización de menú
-export const validateUpdateMenuRequest = [
+export const validateUpdateMenu = [
   param("id")
     .isMongoId()
     .withMessage("ID inválido"),
@@ -35,7 +35,7 @@ export const validateUpdateMenuRequest = [
     .optional()
     .isString()
     .withMessage("La descripción debe ser texto"),
-  validateFields,
+  checkValidators,
 ];
 
 // Validar cambio de estado del menú
@@ -43,7 +43,7 @@ export const validateMenuStatusChange = [
   param("id")
     .isMongoId()
     .withMessage("ID inválido"),
-  validateFields,
+  checkValidators,
 ];
 
 // Validar obtener menú por ID
@@ -51,5 +51,5 @@ export const validateGetMenuById = [
   param("id")
     .isMongoId()
     .withMessage("ID inválido"),
-  validateFields,
+  checkValidators,
 ];

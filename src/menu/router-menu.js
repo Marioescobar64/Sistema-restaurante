@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {
-  getMenu,
+  getMenus,
   getMenuById,
   createMenu,
   updateMenu,
@@ -12,7 +12,7 @@ import {
   validateUpdateMenu,
   validateMenuStatusChange,
   validateGetMenuById,
-} from '../../middlewares/validation-maintenace.js';
+} from '../../middlewares/validation-menu.js';
 
 import { uploadFieldImage } from '../../middlewares/file-uploader.js';
 import { cleanupUploadedFileOnFinish } from '../../middlewares/delete-file-on-error.js';
@@ -24,7 +24,7 @@ const router = Router();
 // ====================
 
 // Obtener todas las mesas (paginación + filtros)
-router.get('/', getMenu);
+router.get('/', getMenus);
 
 // Obtener mesa por ID
 router.get(
@@ -62,7 +62,7 @@ router.put(
 router.put(
   '/:id/activate',
   validateMenuStatusChange,
-  changeMaintenanceStatus
+  changeMenuStatus
 );
 
 // Desactivar mesa

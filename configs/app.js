@@ -10,6 +10,7 @@ import { dbConnection } from './db.js';
 // Rutas
 import administrationRoutes from '../src/administration/router-administration.js';
 import maintenanceRoutes from '../src/maintenance/router-maintenance.js';
+import menuRoutes from '../src/menu/router-menu.js';
 
 const BASE_URL = '/papaluigi/v1';
 
@@ -28,6 +29,7 @@ const middlewares = (app) => {
 const routes =(app) => {
     app.use(`${BASE_URL}/administration`, administrationRoutes);
     app.use(`${BASE_URL}/maintenance`, maintenanceRoutes);
+    app.use(`${BASE_URL}/menu`, menuRoutes);
 }
 
 // funcion para iniciar el servidor
