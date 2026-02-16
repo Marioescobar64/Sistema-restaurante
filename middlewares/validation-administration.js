@@ -14,7 +14,7 @@ export const validateCreateAdministration = [
     body('categoryType')
         .notEmpty()
         .withMessage('El tipo de categoría es requerido')
-        .isIn(['Familiar', 'Romantico', 'General'])
+        .isIn(['FAMILIAR', 'ROMANTICO', 'GENERAL'])
         .withMessage('Tipo de categoría no válido'),
 
     body('capacity')

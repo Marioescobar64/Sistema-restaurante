@@ -13,7 +13,7 @@ const administrationSchema = new mongoose.Schema({
         type: String,
         required: [true, 'El tipo de categoria es requerido'],
         enum: {
-            values: ['Familiar, Romantico, general'],
+            values: ['FAMILIAR', 'ROMANTICO', 'GENERAL'],
             message: 'Tipo de cateogria no valida',
         },
     },
