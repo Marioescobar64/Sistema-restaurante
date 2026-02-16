@@ -1,55 +1,84 @@
 import { body, param } from "express-validator";
-import { validateFields } from "../../middlewares/check-validation.js"; // Ajusta esta ruta si es necesario
+import { checkValidators } from "./check-validation.js";
 
-// Validar creación de menú
-export const validateCreateMenu = [
-  body("name")
-    .notEmpty()
-    .withMessage("El nombre es obligatorio"),
-  body("price")
-    .notEmpty()
-    .withMessage("El precio es obligatorio")
-    .isNumeric()
-    .withMessage("El precio debe ser numérico"),
-  body("description")
-    .optional()
-    .isString()
-    .withMessage("La descripción debe ser texto"),
-  validateFields,
+// Validaciones para crear Administration
+export const validateCreateAdministration = [
+
+    body('restaurantdName')
+        .trim()
+        .notEmpty()
+        .withMessage('El nombre del restaurante es requerido')
+        .isLength({ min: 2, max: 100 })
+        .withMessage('El nombre no puede tener más de 100 caracteres'),
+
+    body('categoryType')
+        .notEmpty()
+        .withMessage('El tipo de categoría es requerido')
+        .isIn(['Familiar', 'Romantico', 'General'])
+        .withMessage('Tipo de categoría no válido'),
+
+    body('capacity')
+        .notEmpty()
+        .withMessage('La capacidad es requerida')
+        .isNumeric()
+        .withMessage('La capacidad debe ser un número')
+        .isInt({ min: 1 })
+        .withMessage('La capacidad debe ser mayor a 0'),
+
+    body('photo')
+        .optional()
+        .isString()
+        .withMessage('La foto debe ser una cadena de texto'),
+
+    checkValidators,
 ];
 
-// Validar actualización de menú
-export const validateUpdateMenuRequest = [
-  param("id")
-    .isMongoId()
-    .withMessage("ID inválido"),
-  body("name")
-    .optional()
-    .notEmpty()
-    .withMessage("El nombre no puede estar vacío"),
-  body("price")
-    .optional()
-    .isNumeric()
-    .withMessage("El precio debe ser numérico"),
-  body("description")
-    .optional()
-    .isString()
-    .withMessage("La descripción debe ser texto"),
-  validateFields,
+
+// Validaciones para actualizar Administration
+export const validateUpdateAdministration = [
+
+    body('restaurantdName')
+        .optional()
+        .trim()
+        .isLength({ min: 2, max: 100 })
+        .withMessage('El nombre no puede tener más de 100 caracteres'),
+
+    body('categoryType')
+        .optional()
+        .isIn(['Familiar', 'Romantico', 'General'])
+        .withMessage('Tipo de categoría no válido'),
+
+    body('capacity')
+        .optional()
+        .isNumeric()
+        .withMessage('La capacidad debe ser un número')
+        .isInt({ min: 1 })
+        .withMessage('La capacidad debe ser mayor a 0'),
+
+    body('photo')
+        .optional()
+        .isString()
+        .withMessage('La foto debe ser una cadena de texto'),
+
+    checkValidators,
 ];
 
-// Validar cambio de estado del menú
-export const validateMenuStatusChange = [
-  param("id")
-    .isMongoId()
-    .withMessage("ID inválido"),
-  validateFields,
+
+// Validación para cambiar estado (activar / desactivar)
+export const validateAdministrationStatusChange = [
+    param('id')
+        .isMongoId()
+        .withMessage('ID debe ser un ObjectId válido de MongoDB'),
+
+    checkValidators,
 ];
 
-// Validar obtener menú por ID
-export const validateGetMenuById = [
-  param("id")
-    .isMongoId()
-    .withMessage("ID inválido"),
-  validateFields,
+
+// Validación para obtener Administration por ID
+export const validateGetAdministrationById = [
+    param('id')
+        .isMongoId()
+        .withMessage('ID debe ser un ObjectId válido de MongoDB'),
+
+    checkValidators,
 ];
