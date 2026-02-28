@@ -39,6 +39,10 @@ const pedidoSchema = new mongoose.Schema({
     editable: {
         type: Boolean,
         default: true // Asumo que al inicio se puede editar
+    },
+    isActive: {
+        type: Boolean,
+        default: true
     }
 }, {
     timestamps: true 
