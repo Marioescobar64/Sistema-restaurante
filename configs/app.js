@@ -11,6 +11,12 @@ import { dbConnection } from './db.js';
 import administrationRoutes from '../src/administration/router-administration.js';
 import maintenanceRoutes from '../src/maintenance/router-maintenance.js';
 import menuRoutes from '../src/menu/router-menu.js';
+import productRoutes from '../src/producto/product-routes.js';
+import reservationRoutes from '../src/reservacion/reservation-routes.js';
+import orderRoutes from '../src/pedido/order-routes.js';
+import tableRoutes from '../src/mesa/table-routes.js';
+import eventRoutes from '../src/evento/event-routes.js';
+import orderDetailRoutes from '../src/detallePedido/orderDetail-routes.js';
 
 const BASE_URL = '/papaluigi/v1';
 
@@ -30,6 +36,12 @@ const routes =(app) => {
     app.use(`${BASE_URL}/administration`, administrationRoutes);
     app.use(`${BASE_URL}/maintenance`, maintenanceRoutes);
     app.use(`${BASE_URL}/menu`, menuRoutes);
+    app.use(`${BASE_URL}/product`, productRoutes);
+    app.use(`${BASE_URL}/reservation`, reservationRoutes);
+    app.use(`${BASE_URL}/order`, orderRoutes);
+    app.use(`${BASE_URL}/table`, tableRoutes);
+    app.use(`${BASE_URL}/event`, eventRoutes);
+    app.use(`${BASE_URL}/orderDetail`, orderDetailRoutes);
 }
 
 // funcion para iniciar el servidor
