@@ -1,4 +1,4 @@
-import Administration from './administration.model.js';
+import Administration from './model-administration.js';
 import { cloudinary } from '../../middlewares/file-uploader.js';
 
 // Obtener todos los restaurantes (con paginación y filtros)

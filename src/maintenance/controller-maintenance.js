@@ -1,4 +1,4 @@
-import Maintenance from './maintenance.model.js';
+import Maintenance from './model-maintenance.js';
 import { cloudinary } from '../../middlewares/file-uploader.js';
 
 // Obtener todas las mesas (paginación + filtros)

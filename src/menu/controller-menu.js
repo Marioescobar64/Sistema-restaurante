@@ -1,4 +1,4 @@
-import Menu from './menu.model.js';
+import Menu from '../menu/model-menu.js';
 import { cloudinary } from '../../middlewares/file-uploader.js';
 
 // Obtener todos los platillos (paginación + filtros)

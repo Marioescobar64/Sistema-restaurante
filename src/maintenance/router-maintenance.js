@@ -1,52 +1,72 @@
-// importar las dependencias
-import { Router } from "express";
+import { Router } from 'express';
 import {
   getMaintenances,
-  createMaintenance,
   getMaintenanceById,
+  createMaintenance,
   updateMaintenance,
   changeMaintenanceStatus,
-} from "./maintenance-controller.js";
+} from './controller-maintenance.js';
 
 import {
   validateCreateMaintenance,
-  validateUpdateMaintenanceRequest,
+  validateUpdateMaintenance,
   validateMaintenanceStatusChange,
   validateGetMaintenanceById,
-} from "../../middlewares/validation-maintenance.js";
+} from '../../middlewares/validation-maintenace.js';
 
-import { uploadMaintenanceImage } from "../../middlewares/file-update.js";
+import { uploadFieldImage } from '../../middlewares/file-uploader.js';
+import { cleanupUploadedFileOnFinish } from '../../middlewares/delete-file-on-error.js';
 
 const router = Router();
 
-// Rutas Get
-router.get('/', getMaintenances);
-router.get('/:id', validateGetMaintenanceById, getMaintenanceById);
+// ====================
+// RUTAS GET
+// ====================
 
-// rutas Post
+// Obtener todas las mesas (paginación + filtros)
+router.get('/', getMaintenances);
+
+// Obtener mesa por ID
+router.get(
+  '/:id',
+  validateGetMaintenanceById,
+  getMaintenanceById
+);
+
+// ====================
+// RUTAS POST
+// ====================
+
+// Crear mesa
 router.post(
   '/',
-  uploadMaintenanceImage.single('photo'),
+  uploadFieldImage.single('photo'), // campo del form-data: photo
+  cleanupUploadedFileOnFinish,
   validateCreateMaintenance,
   createMaintenance
 );
 
-// Rutas Put
+// ====================
+// RUTAS PUT
+// ====================
+
+// Actualizar mesa
 router.put(
   '/:id',
-  uploadMaintenanceImage.single('photo'),
-  validateUpdateMaintenanceRequest,
+  uploadFieldImage.single('photo'),
+  validateUpdateMaintenance,
   updateMaintenance
 );
 
-// Activar / desactivar sin borrar
-router.patch(
+// Activar mesa
+router.put(
   '/:id/activate',
   validateMaintenanceStatusChange,
   changeMaintenanceStatus
 );
 
-router.patch(
+// Desactivar mesa
+router.put(
   '/:id/deactivate',
   validateMaintenanceStatusChange,
   changeMaintenanceStatus
