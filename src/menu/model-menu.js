@@ -13,7 +13,7 @@ const menuSchema = new mongoose.Schema({
         type: String,
         required: [true, 'El tipo de campo es requerido'],
         enum: {
-            values: ['Platillo-Familiar, Desayuno, Almuerzo, Cena'],
+            values: ['Platillo-Familiar', 'Desayuno', 'Almuerzo', 'Cena'],
             message: 'Tipo de superficie no valida',
         },
     },
