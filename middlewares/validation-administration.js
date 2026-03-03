@@ -45,7 +45,7 @@ export const validateUpdateAdministration = [
 
     body('categoryType')
         .optional()
-        .isIn(['Familiar', 'Romantico', 'General'])
+        .isIn(['FAMILIAR', 'ROMANTICO', 'GENERAL'])
         .withMessage('Tipo de categoría no válido'),
 
     body('capacity')
