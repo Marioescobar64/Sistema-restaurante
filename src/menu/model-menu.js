@@ -1,48 +1,46 @@
 'use strict';
 
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 
 const menuSchema = new mongoose.Schema({
-        saucerName: {
+    saucerName: {
         type: String,
-        required: true,
+        required: [true, 'El nombre del platillo es obligatorio'],
         trim: true,
-        maxLength: [255, 'El nombre del platillo no puede tener mas de 100 caracteres'],
+        maxLength: [255, 'El nombre del platillo no puede exceder los 255 caracteres'],
     },
     categoryType: {
         type: String,
-        required: [true, 'El tipo de campo es requerido'],
+        required: [true, 'La categoría es requerida'],
         enum: {
             values: ['Platillo-Familiar', 'Desayuno', 'Almuerzo', 'Cena'],
-            message: 'Tipo de superficie no valida',
+            message: '{VALUE} no es una categoría válida',
         },
     },
-    // es la capacidad de personas sin incluir al personal en el restaurante 
-
+    price: {
+        type: Number,
+        required: [true, 'El precio es obligatorio'],
+        min: [0, 'El precio no puede ser negativo']
+    },
     description: {
-    type: String,
-    trim: true,
-    maxLength: [500, 'La descripción no puede exceder 500 caracteres'],
+        type: String,
+        trim: true,
+        maxLength: [500, 'La descripción no puede exceder 500 caracteres'],
     },
-     
     photo: {
-    type: String,
-    // valor por defecto
-    default: 'administration/saucer',
+        type: String,
+        default: 'administration/saucer',
     },
-    
-
     isActive: {
-    type: Boolean,
-    default: true,
+        type: Boolean,
+        default: true,
     }
+}, {
+    timestamps: true
 });
 
-menuSchema.index({ isActive: 1  });
-menuSchema.index({ saucerName: 1  });
-menuSchema.index({ saucerName: 1, isActive: 1  });
+menuSchema.index({ isActive: 1 });
+menuSchema.index({ saucerName: 1 });
+menuSchema.index({ saucerName: 1, isActive: 1 });
 
- 
-
-// exportamos el modelo con el nombre Field
-export default mongoose.model('Menu', menuSchema)
+export default mongoose.model('Menu', menuSchema);
