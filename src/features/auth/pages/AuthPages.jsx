@@ -14,8 +14,8 @@ export const AuthPage = () => {
         {/* Logo */}
         <div className="flex justify-center mb-6">
           <img
-            src="/src/assets/img/kinal_sports.png"
-            alt="Kinal Sports"
+            src="/src/assets/img/logo.png"
+            alt="Papa Luigi"
             className="h-20 w-auto"
           />
         </div>
@@ -29,7 +29,7 @@ export const AuthPage = () => {
           <p className="text-gray-600 text-base max-w-md mx-auto">
             {isForgot
               ? "Ingresa tu correo para recuperar tu contraseña"
-              : "Ingresa a tu cuenta de administrador de Kinal Sports"}
+              : "Ingresa a tu cuenta de administrador de Papa Luigi"}
           </p>
         </div>
         {isForgot ? (

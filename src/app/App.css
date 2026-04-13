@@ -4,17 +4,17 @@
   --primary: #7F3C09;
   --secondary: #2C1506;
   --danger: #440F0F;
-
+ 
   --text-main: #2C1506;
   --text-light: #F5F5DC;
-
+ 
   --accent: #7F3C09;
   --accent-bg: #F5F5DC;
   --accent-border: #440F0F;
-
+ 
   --border: #7F3C09;
 }
-
+ 
 /* Reset básico */
 body {
   margin: 0;
@@ -22,7 +22,7 @@ body {
   background: linear-gradient(135deg, #F3F8F2, #F5F5DC);
   color: var(--text-main);
 }
-
+ 
 /* CONTENEDOR LOGIN */
 .login-container {
   height: 100vh;
@@ -30,7 +30,7 @@ body {
   justify-content: center;
   align-items: center;
 }
-
+ 
 /* CARD LOGIN */
 .login-card {
   background: var(--bg-card);
@@ -39,14 +39,14 @@ body {
   width: 320px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
-
+ 
 /* TITULO */
 .login-card h2 {
   text-align: center;
   margin-bottom: 20px;
   color: var(--primary);
 }
-
+ 
 /* INPUTS */
 .login-card input {
   width: 100%;
@@ -56,11 +56,11 @@ body {
   border-radius: 8px;
   outline: none;
 }
-
+ 
 .login-card input:focus {
   border-color: var(--primary);
 }
-
+ 
 /* BOTÓN */
 .login-card button {
   width: 100%;
@@ -72,11 +72,11 @@ body {
   cursor: pointer;
   transition: 0.3s;
 }
-
+ 
 .login-card button:hover {
   background: var(--secondary);
 }
-
+ 
 /* EXTRA: efecto suave */
 .login-card {
   backdrop-filter: blur(10px);

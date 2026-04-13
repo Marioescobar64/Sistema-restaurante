@@ -9,12 +9,12 @@ export const Navbar = () => {
 <div className="flex items-center gap-2">
 <img
                         src={imgLogo}
-                        alt="Kinal Sports Logo"
+                        alt="Papa Luigi Logo"
                         className="h-8 md:h-10 w-auto object-contain"
                     />
  
                     <h1 className="font-bold text-main-blue text-lg">
-                        Kinal Sports Admin
+                            Papa Luigi
 </h1>
 </div>
  

@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+ 
 /* VARIABLES DE COLOR (TU PALETA) */
 @theme {
   --color-primary: #7F3C09;
@@ -8,24 +8,24 @@
   --color-card: #F5F5DC;
   --color-danger: #440F0F;
 }
-
+ 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+ 
   --primary: #7F3C09;
   --secondary: #2C1506;
   --bg: #F3F8F2;
   --card: #F5F5DC;
   --danger: #440F0F;
-
+ 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+ 
 /* ANIMACIÓN */
 @keyframes fadeIn {
   from {
@@ -37,16 +37,16 @@
     transform: translateY(0);
   }
 }
-
+ 
 .animate-fadeIn {
   animation: fadeIn 0.15s ease-out;
 }
-
+ 
 /* SIDEBAR EFECTO */
 .sidebar-underline {
   position: relative;
 }
-
+ 
 .sidebar-underline.active::after {
   content: "";
   position: absolute;
@@ -55,7 +55,7 @@
   bottom: 6px;
   height: 5px;
   border-radius: 6px;
-
+ 
   /* 🎨 degradado con tu paleta */
   background: linear-gradient(
     90deg,
@@ -63,7 +63,7 @@
     #7F3C09 50%,
     rgba(127, 60, 9, 0.2) 100%
   );
-
+ 
   filter: blur(1.5px);
   z-index: 1;
 }
