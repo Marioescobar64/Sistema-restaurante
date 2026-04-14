@@ -18,20 +18,20 @@ export const DashboardContainer = () => {
           <Navbar />
         </div>
        
- 
+
         <div className="flex flex-1">
           <div className="bg-[#041F3D]/95 backdrop-blur-md border-r border-[#18A7A1]/20 min-w-[220px]">
             <Sidebar />
           </div>
           <main className="flex-1 p-6 bg-[#041F3D]/80">
-            <div className="relative rounded-xl overflow-hidden shadow-lg border border-[#18A7A1]/20">
-              <div className="absolute inset-0 bg-[#0B3A66]/80" />
+            <div className="relative rounded-xl overflow-hidden shadow-lg border border-white/10">
+              <div className="absolute inset-0 bg-white/10 backdrop-blur-sm" />
               <div className="relative p-6">
-                <h2 className="text-xl font-semibold text-[#E6E6E6] mb-4">
+                <h2 className="text-xl font-semibold text-[#1a2e44] mb-4">
                   Contenido del menú
                 </h2>
  
-                <p className="text-[#E6E6E6]/80">
+                <p className="text-[#2c4a63]/90">
                
                 </p>
               </div>
@@ -45,4 +45,3 @@ export const DashboardContainer = () => {
     </div>
   );
 };
- 
