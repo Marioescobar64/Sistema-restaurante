@@ -17,6 +17,7 @@ import orderRoutes from '../src/pedido/order-routes.js';
 import tableRoutes from '../src/mesa/table-routes.js';
 import eventRoutes from '../src/evento/event-routes.js';
 import orderDetailRoutes from '../src/detallePedido/orderDetail-routes.js';
+import cartRoutes from '../src/cart/cart-router.js';
 
 const BASE_URL = '/papaluigi/v1';
 
@@ -42,6 +43,7 @@ const routes =(app) => {
     app.use(`${BASE_URL}/table`, tableRoutes);
     app.use(`${BASE_URL}/event`, eventRoutes);
     app.use(`${BASE_URL}/orderDetail`, orderDetailRoutes);
+    app.use(`${BASE_URL}/cart`, cartRoutes);
 }
 
 // funcion para iniciar el servidor

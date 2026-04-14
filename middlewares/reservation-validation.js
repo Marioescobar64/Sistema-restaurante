@@ -4,6 +4,10 @@ import { checkValidators } from './check-validation.js';
 // CREATE
 export const validateCreateReserva = [
 
+  body('eventoId')
+    .notEmpty().withMessage('El evento es obligatorio')
+    .isMongoId().withMessage('ID de evento inválido'),
+
   body('descripcion')
     .notEmpty().withMessage('Descripción obligatoria'),
 

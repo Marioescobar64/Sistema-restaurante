@@ -3,6 +3,13 @@
 import mongoose from 'mongoose';
 
 const reservaSchema = new mongoose.Schema({
+    
+        eventoId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event',
+        required: [true, 'El evento es obligatorio']
+    },
+
     descripcion: {
         type: String,
         required: [true, 'La descripción de la reserva es obligatoria'],
