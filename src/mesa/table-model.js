@@ -46,7 +46,6 @@ const mesaSchema = new mongoose.Schema({
 });
 
 // Índices para que sea rápido buscar mesas por número o por estado
-mesaSchema.index({ numeroMesa: 1 });
 mesaSchema.index({ estado: 1 });
 
 // Exportamos el modelo con el nombre 'Mesa'
