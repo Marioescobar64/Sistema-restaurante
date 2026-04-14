@@ -1,34 +1,31 @@
 export const ForgotPasswordForm = ({ onSwitch }) => {
   return (
-    <form className="space-y-5">
-      
-      
+    <form className="space-y-5 bg-[#E8D5B7]/95 backdrop-blur-md p-6 rounded-xl border border-[#A0724A]/30 shadow-sm">
+
       <div>
-        <label className="block text-sm font-medium text-gray-800 mb-1.5">
+        <label className="block text-sm font-medium text-[#4A2C0A] mb-1.5">
           Email
         </label>
         <input
           type="email"
           placeholder="correo@ejemplo.com"
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+          className="w-full px-3 py-2 text-sm border border-[#A0724A]/50 rounded-lg focus:ring-2 focus:ring-[#A0724A]/60 outline-none bg-[#F5ECD9]/60 text-[#4A2C0A] placeholder-[#A0724A]/50"
         />
       </div>
 
-      
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-2.5 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition"
+        className="w-full bg-[#A0724A] text-[#F5ECD9] py-2.5 px-4 rounded-lg text-sm font-medium hover:bg-[#7A5235] transition"
       >
         Enviar correo
       </button>
 
-      
-      <p className="text-center text-sm text-gray-600">
+      <p className="text-center text-sm text-[#4A2C0A]/70">
         ¿Recordaste tu contraseña?{" "}
         <button
           type="button"
           onClick={onSwitch}
-          className="text-blue-600 font-medium hover:underline"
+          className="text-[#A0724A] font-medium hover:underline"
         >
           Iniciar sesión
         </button>
