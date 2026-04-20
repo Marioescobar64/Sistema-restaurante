@@ -329,7 +329,9 @@ const swaggerOptions = {
               description: "Estado del carrito",
             },
           },
-        },
+        },        // cierra cart
+      },          // cierra schemas
+    },            // cierra components
     security: [{ bearerAuth: [] }],
     servers: [
       {
@@ -338,54 +340,22 @@ const swaggerOptions = {
       },
     ],
     tags: [
-      {
-        name: "Administrations",
-        description: "Gestión del restaurante",
-      },
-      {
-        name: "Menus",
-        description: "Gestor de menus del restaurante",
-      },
-      {
-        name: "Products",
-        description: "Gestor de productos y platillos",
-      },
-      {
-        name: "Tables",
-        description: "Gestión de las mesas del restaurante",
-      },
-      {
-        name: "Orders",
-        description: "Gestión de los pedidos",
-      },
-      {
-        name: "OrderDetails",
-        description: "Gestión de los detalles del pedidos",
-      },
-      {
-        name: "Reservations",
-        description: "Gestión de reservaciones",
-      },
-      {
-        name: "Events",
-        description: "Gestión de eventos del restaurante",
-      },
-      {
-        name: "Maintenances",
-        description: "Gestión de mantenimientos",
-      },
-      {
-        name: "Carts",
-        description: "Gestión de carritos de compras",
-      },
+      { name: "Administrations", description: "Gestión del restaurante" },
+      { name: "Menus", description: "Gestor de menus del restaurante" },
+      { name: "Products", description: "Gestor de productos y platillos" },
+      { name: "Tables", description: "Gestión de las mesas del restaurante" },
+      { name: "Orders", description: "Gestión de los pedidos" },
+      { name: "OrderDetails", description: "Gestión de los detalles del pedidos" },
+      { name: "Reservations", description: "Gestión de reservaciones" },
+      { name: "Events", description: "Gestión de eventos del restaurante" },
+      { name: "Maintenances", description: "Gestión de mantenimientos" },
+      { name: "Carts", description: "Gestión de carritos de compras" },
     ],
-  },
+  },              // cierra swaggerDefinition
   apis: [
-      path.join(__dirname, "../src/**/*.js"),
+    path.join(__dirname, "../src/**/*.js"),
   ],
-}
-  }
-};
+};              // cierra swaggerOptions
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
