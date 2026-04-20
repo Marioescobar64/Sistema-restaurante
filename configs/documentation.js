@@ -55,14 +55,15 @@ const swaggerOptions = {
         },
         menu: {
           type: "object",
+          required: ["name", "price"],
           properties: {
-            restaurantId: {
-              type: "string",
-              description: "ID del restaurante asociado",
-            },
             name: {
               type: "string",
               description: "Nombre del menú",
+            },
+            price: {
+              type: "number",
+              description: "Precio del menú",
             },
             description: {
               type: "string",
@@ -77,165 +78,258 @@ const swaggerOptions = {
         },
         product: {
           type: "object",
+          required: ["nombre", "descripcion", "precio", "categoria"],
           properties: {
-            menuId: {
+            nombre: {
               type: "string",
-              description: "ID del menú asociado",
-            },
-            name: {
-              type: "string",
+              maxLength: 100,
               description: "Nombre del producto",
             },
-            price: {
-              type: "number",
-              description: "Precio del producto",
-            },
-            description: {
+            descripcion: {
               type: "string",
               description: "Descripción del producto",
+            },
+            precio: {
+              type: "number",
+              minimum: 0,
+              description: "Precio del producto",
+            },
+            categoria: {
+              type: "string",
+              description: "Categoría del producto",
             },
           },
         },
         table: {
           type: "object",
+          required: ["descripcion", "numeroMesa", "capacidad"],
           properties: {
-            restaurantId: {
+            descripcion: {
               type: "string",
-              description: "ID del restaurante asociado",
+              description: "Descripción de la mesa",
             },
-            number: {
+            numeroMesa: {
               type: "integer",
+              minimum: 1,
               description: "Número de la mesa",
             },
-            capacity: {
+            capacidad: {
               type: "integer",
+              minimum: 1,
               description: "Capacidad de personas",
+            },
+            estado: {
+              type: "string",
+              enum: ["Disponible", "Ocupada", "Reservada"],
+              description: "Estado de la mesa",
             },
           },
         },
         order: {
           type: "object",
+          required: ["nombrePedido", "descripcion", "total"],
           properties: {
-            tableId: {
+            nombrePedido: {
               type: "string",
-              description: "ID de la mesa asociada",
+              maxLength: 100,
+              description: "Nombre del pedido",
             },
-            userId: {
+            descripcion: {
               type: "string",
-              description: "ID del usuario que realizó el pedido",
+              description: "Descripción del pedido",
             },
-            status: {
+            total: {
+              type: "number",
+              minimum: 0,
+              description: "Total del pedido",
+            },
+            estado: {
               type: "string",
+              enum: ["Pendiente", "En proceso", "Entregado", "Cancelado"],
               description: "Estado del pedido",
             },
           },
         },
         orderDetail: {
           type: "object",
+          required: ["descripcion", "cantidad", "precioUnitario", "subtotal"],
           properties: {
-            orderId: {
+            descripcion: {
               type: "string",
-              description: "ID del pedido asociado",
+              description: "Descripción del detalle",
             },
-            productId: {
-              type: "string",
-              description: "ID del producto",
-            },
-            quantity: {
+            cantidad: {
               type: "integer",
+              minimum: 1,
               description: "Cantidad del producto",
             },
-            unitPrice: {
+            precioUnitario: {
               type: "number",
-              description: "Precio unitario al momento del pedido",
+              minimum: 0,
+              description: "Precio unitario del producto",
+            },
+            subtotal: {
+              type: "number",
+              minimum: 0,
+              description: "Subtotal del detalle",
             },
           },
         },
         reservation: {
           type: "object",
+          required: ["eventoId", "descripcion", "usuario", "mesa", "fecha", "hora", "cantidadPersonas"],
           properties: {
-            tableId: {
+            eventoId: {
               type: "string",
-              description: "ID de la mesa a reservar",
+              description: "ID del evento asociado",
             },
-            userId: {
+            descripcion: {
               type: "string",
-              description: "ID del usuario que reserva",
+              description: "Descripción de la reservación",
             },
-            reservationDate: {
+            usuario: {
               type: "string",
-              format: "date-time",
-              description: "Fecha y hora de la reservación en formato ISO",
+              description: "Nombre del usuario que reserva",
             },
-            partySize: {
+            mesa: {
               type: "integer",
-              description: "Número de personas",
+              minimum: 1,
+              description: "Número de mesa",
+            },
+            fecha: {
+              type: "string",
+              format: "date",
+              description: "Fecha de la reservación en formato ISO",
+            },
+            hora: {
+              type: "string",
+              description: "Hora de la reservación",
+            },
+            cantidadPersonas: {
+              type: "integer",
+              minimum: 1,
+              description: "Cantidad de personas",
+            },
+            estado: {
+              type: "string",
+              enum: ["Activa", "Cancelada", "Finalizada"],
+              description: "Estado de la reservación",
             },
           },
         },
         event: {
           type: "object",
+          required: ["nombreEvento", "descripcion", "fecha", "horaInicio", "horaFin"],
           properties: {
-            restaurantId: {
+            nombreEvento: {
               type: "string",
-              description: "ID del restaurante asociado",
+              maxLength: 150,
+              description: "Nombre del evento",
             },
-            title: {
+            descripcion: {
               type: "string",
-              description: "Título del evento",
+              description: "Descripción del evento",
             },
-            description: {
+            fecha: {
               type: "string",
-              description: "Descripción detallada del evento",
+              format: "date",
+              description: "Fecha del evento en formato ISO",
             },
-            eventDate: {
+            horaInicio: {
               type: "string",
-              format: "date-time",
-              description: "Fecha y hora del evento en formato ISO",
+              description: "Hora de inicio del evento",
+            },
+            horaFin: {
+              type: "string",
+              description: "Hora de fin del evento",
             },
           },
         },
         maintenance: {
-          type: "object",
-          properties: {
-            restaurantId: {
-              type: "string",
-              description: "ID del restaurante asociado",
-            },
-            description: {
-              type: "string",
-              description: "Descripción del mantenimiento",
-            },
-            scheduledDate: {
-              type: "string",
-              format: "date-time",
-              description: "Fecha programada del mantenimiento",
-            },
-            photo: {
-              type: "string",
-              format: "binary",
-              description: "Imagen del mantenimiento",
-            },
+        type: "object",
+        required: ["tableNumber", "capacity", "location"],
+        properties: {
+          tableNumber: {
+            type: "integer",
+            minimum: 1,
+            description: "Número de mesa",
           },
-        },
-        cart: {
-          type: "object",
-          properties: {
-            userId: {
-              type: "string",
-              description: "ID del usuario propietario del carrito",
-            },
-            items: {
-              type: "array",
-              items: {
-                type: "string",
-              },
-              description: "Lista de IDs de productos en el carrito",
-            },
+          capacity: {
+            type: "integer",
+            minimum: 1,
+            description: "Capacidad de la mesa",
+          },
+          location: {
+            type: "string",
+            enum: ["Salón Principal", "Terraza", "Área VIP", "Jardín", "Interior"],
+            description: "Ubicación de la mesa",
+          },
+          status: {
+            type: "string",
+            enum: ["Disponible", "Ocupada", "Reservada", "Mantenimiento"],
+            description: "Estado de la mesa",
+          },
+          photo: {
+            type: "string",
+            format: "binary",
+            description: "Foto de la mesa",
+          },
+          isActive: {
+            type: "boolean",
+            description: "Estado activo/inactivo",
           },
         },
       },
-    },
+        cart: {
+          type: "object",
+          required: ["orderId", "items"],
+          properties: {
+            orderId: {
+              type: "string",
+              description: "ID del pedido asociado",
+            },
+            items: {
+              type: "array",
+              minItems: 1,
+              description: "Lista de productos en el carrito",
+              items: {
+                type: "object",
+                required: ["menuItem", "quantity", "price", "subtotal"],
+                properties: {
+                  menuItem: {
+                    type: "string",
+                    description: "ID del platillo",
+                  },
+                  quantity: {
+                    type: "integer",
+                    minimum: 1,
+                    description: "Cantidad del producto",
+                  },
+                  price: {
+                    type: "number",
+                    minimum: 0,
+                    description: "Precio unitario",
+                  },
+                  subtotal: {
+                    type: "number",
+                    minimum: 0,
+                    description: "Subtotal del producto",
+                  },
+                },
+              },
+            },
+            total: {
+              type: "number",
+              minimum: 0,
+              description: "Total del carrito",
+            },
+            status: {
+              type: "string",
+              enum: ["activo", "confirmado", "cancelado"],
+              description: "Estado del carrito",
+            },
+          },
+        },
     security: [{ bearerAuth: [] }],
     servers: [
       {
@@ -289,6 +383,8 @@ const swaggerOptions = {
   apis: [
       path.join(__dirname, "../src/**/*.js"),
   ],
+}
+  }
 };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
