@@ -19,38 +19,115 @@ import { cleanupUploadedFileOnFinish } from '../../middlewares/delete-file-on-er
 
 const router = Router();
 
-// ====================
-// RUTAS GET
-// ====================
+/**
+ * @swagger
+ * tags:
+ *   name: Maintenances
+ *   description: Endpoints para la gestión de mantenimientos
+ */
 
-// Obtener todas las mesas (paginación + filtros)
+// ==========================================
+//                   GET
+// ==========================================
+
+/**
+ * @swagger
+ * /maintenances/:
+ *   get:
+ *     summary: Obtener lista de mantenimientos
+ *     tags: [Maintenances]
+ *     responses:
+ *       200:
+ *         description: Lista de mantenimientos obtenida exitosamente
+ */
 router.get('/', getMaintenances);
 
-// Obtener mesa por ID
+/**
+ * @swagger
+ * /maintenances/{id}:
+ *   get:
+ *     summary: Obtener un mantenimiento por su ID
+ *     tags: [Maintenances]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del mantenimiento a buscar
+ *     responses:
+ *       200:
+ *         description: Mantenimiento obtenido exitosamente
+ *       404:
+ *         description: Mantenimiento no encontrado
+ */
 router.get(
   '/:id',
   validateGetMaintenanceById,
   getMaintenanceById
 );
 
-// ====================
-// RUTAS POST
-// ====================
+// ==========================================
+//                   POST
+// ==========================================
 
-// Crear mesa
+/**
+ * @swagger
+ * /maintenances/:
+ *   post:
+ *     summary: Crear nuevo mantenimiento
+ *     tags: [Maintenances]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             $ref: '#/components/schemas/maintenance'
+ *     responses:
+ *       201:
+ *         description: Mantenimiento creado exitosamente
+ *       400:
+ *         description: Error de validación en los datos enviados
+ */
 router.post(
   '/',
-  uploadFieldImage.single('photo'), // campo del form-data: photo
+  uploadFieldImage.single('photo'),
   cleanupUploadedFileOnFinish,
   validateCreateMaintenance,
   createMaintenance
 );
 
-// ====================
-// RUTAS PUT
-// ====================
+// ==========================================
+//                   PUT
+// ==========================================
 
-// Actualizar mesa
+/**
+ * @swagger
+ * /maintenances/{id}:
+ *   put:
+ *     summary: Actualizar información de un mantenimiento
+ *     tags: [Maintenances]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del mantenimiento a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             $ref: '#/components/schemas/maintenance'
+ *     responses:
+ *       200:
+ *         description: Mantenimiento actualizado exitosamente
+ *       400:
+ *         description: Error de validación
+ *       404:
+ *         description: Mantenimiento no encontrado
+ */
 router.put(
   '/:id',
   uploadFieldImage.single('photo'),
@@ -58,14 +135,50 @@ router.put(
   updateMaintenance
 );
 
-// Activar mesa
+/**
+ * @swagger
+ * /maintenances/{id}/activate:
+ *   put:
+ *     summary: Activar un mantenimiento
+ *     tags: [Maintenances]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del mantenimiento a activar
+ *     responses:
+ *       200:
+ *         description: Estado del mantenimiento cambiado a activado
+ *       404:
+ *         description: Mantenimiento no encontrado
+ */
 router.put(
   '/:id/activate',
   validateMaintenanceStatusChange,
   changeMaintenanceStatus
 );
 
-// Desactivar mesa
+/**
+ * @swagger
+ * /maintenances/{id}/deactivate:
+ *   put:
+ *     summary: Desactivar un mantenimiento
+ *     tags: [Maintenances]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del mantenimiento a desactivar
+ *     responses:
+ *       200:
+ *         description: Estado del mantenimiento cambiado a desactivado
+ *       404:
+ *         description: Mantenimiento no encontrado
+ */
 router.put(
   '/:id/deactivate',
   validateMaintenanceStatusChange,
