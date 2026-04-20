@@ -55,24 +55,31 @@ const swaggerOptions = {
         },
         menu: {
           type: "object",
-          required: ["name", "price"],
+          required: ["saucerName", "categoryType", "price"],
           properties: {
-            name: {
+            saucerName: {
               type: "string",
-              description: "Nombre del menú",
+              maxLength: 255,
+              description: "Nombre del platillo",
+            },
+            categoryType: {
+              type: "string",
+              enum: ["Platillo-Familiar", "Desayuno", "Almuerzo", "Cena"],
+              description: "Categoría del platillo",
             },
             price: {
               type: "number",
-              description: "Precio del menú",
+              minimum: 0,
+              description: "Precio del platillo",
             },
             description: {
               type: "string",
-              description: "Descripción del menú",
+              description: "Descripción del platillo",
             },
             photo: {
               type: "string",
               format: "binary",
-              description: "Imagen del menú",
+              description: "Imagen del platillo",
             },
           },
         },

@@ -1,55 +1,61 @@
 import { body, param } from "express-validator";
-import { checkValidators } from "./check-validation.js"; // ruta correcta según tu estructura
+import { checkValidators } from "./check-validation.js";
 
-// Validar creación de menú
+// CREATE
 export const validateCreateMenu = [
-  body("name")
-    .notEmpty()
-    .withMessage("El nombre es obligatorio"),
+  body("saucerName")
+    .notEmpty().withMessage("El nombre del platillo es obligatorio")
+    .isLength({ max: 255 }).withMessage("Máximo 255 caracteres"),
+
+  body("categoryType")
+    .notEmpty().withMessage("La categoría es requerida")
+    .isIn(["Platillo-Familiar", "Desayuno", "Almuerzo", "Cena"])
+    .withMessage("Categoría no válida"),
+
   body("price")
-    .notEmpty()
-    .withMessage("El precio es obligatorio")
-    .isNumeric()
-    .withMessage("El precio debe ser numérico"),
+    .notEmpty().withMessage("El precio es obligatorio")
+    .isFloat({ min: 0 }).withMessage("El precio no puede ser negativo"),
+
   body("description")
     .optional()
-    .isString()
-    .withMessage("La descripción debe ser texto"),
+    .isString().withMessage("La descripción debe ser texto"),
+
   checkValidators,
 ];
 
-// Validar actualización de menú
+// UPDATE
 export const validateUpdateMenu = [
-  param("id")
-    .isMongoId()
-    .withMessage("ID inválido"),
-  body("name")
+  param("id").isMongoId().withMessage("ID inválido"),
+
+  body("saucerName")
     .optional()
-    .notEmpty()
-    .withMessage("El nombre no puede estar vacío"),
+    .notEmpty().withMessage("El nombre no puede estar vacío")
+    .isLength({ max: 255 }),
+
+  body("categoryType")
+    .optional()
+    .isIn(["Platillo-Familiar", "Desayuno", "Almuerzo", "Cena"])
+    .withMessage("Categoría no válida"),
+
   body("price")
     .optional()
-    .isNumeric()
-    .withMessage("El precio debe ser numérico"),
+    .isFloat({ min: 0 }).withMessage("El precio no puede ser negativo"),
+
   body("description")
     .optional()
-    .isString()
-    .withMessage("La descripción debe ser texto"),
+    .isString().withMessage("La descripción debe ser texto"),
+
   checkValidators,
 ];
 
-// Validar cambio de estado del menú
+// STATUS
 export const validateMenuStatusChange = [
-  param("id")
-    .isMongoId()
-    .withMessage("ID inválido"),
+  param("id").isMongoId().withMessage("ID inválido"),
   checkValidators,
 ];
 
-// Validar obtener menú por ID
+// GET BY ID
 export const validateGetMenuById = [
-  param("id")
-    .isMongoId()
-    .withMessage("ID inválido"),
+  param("id").isMongoId().withMessage("ID inválido"),
   checkValidators,
 ];
