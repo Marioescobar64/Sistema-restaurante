@@ -1,7 +1,6 @@
 "use strict";
 
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -20,8 +19,6 @@ import tableRoutes from "../src/mesa/table-routes.js";
 import eventRoutes from "../src/evento/event-routes.js";
 import orderDetailRoutes from "../src/detallePedido/orderDetail-routes.js";
 import cartRoutes from "../src/cart/cart-router.js";
-
-dotenv.config();
 
 const app = express();
 const BASE_URL = "/papaluigi/v1";
@@ -87,3 +84,5 @@ app.listen(PORT, () => {
   console.log(`Base URL: http://localhost:${PORT}${BASE_URL}`);
   console.log(`Swagger Docs: http://localhost:${PORT}/api-docs`);
 });
+
+export { app };

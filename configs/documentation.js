@@ -232,7 +232,7 @@ const swaggerOptions = {
     security: [{ bearerAuth: [] }],
     servers: [
       {
-        url: "http://localhost:3000/api/v1",
+        url: "http://localhost:3001/papaluigi/v1",
         description: "Servidor local",
       },
     ],
@@ -280,8 +280,7 @@ const swaggerOptions = {
     ],
   },
   apis: [
-    path.join(__dirname, "../src/routes/*.js"),
-    path.join(__dirname, "./src/routes/*.js"),
+      path.join(__dirname, "../src/**/*.js"),
   ],
 };
 
