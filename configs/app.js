@@ -33,16 +33,16 @@ app.use(express.json({ limit: "10mb" }));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.use(`${BASE_URL}/administration`, administrationRoutes);
-app.use(`${BASE_URL}/maintenance`, maintenanceRoutes);
-app.use(`${BASE_URL}/menu`, menuRoutes);
-app.use(`${BASE_URL}/product`, productRoutes);
-app.use(`${BASE_URL}/reservation`, reservationRoutes);
-app.use(`${BASE_URL}/order`, orderRoutes);
-app.use(`${BASE_URL}/table`, tableRoutes);
-app.use(`${BASE_URL}/event`, eventRoutes);
-app.use(`${BASE_URL}/orderDetail`, orderDetailRoutes);
-app.use(`${BASE_URL}/cart`, cartRoutes);
+app.use(`${BASE_URL}/administrations`, administrationRoutes);
+app.use(`${BASE_URL}/maintenances`, maintenanceRoutes);
+app.use(`${BASE_URL}/menus`, menuRoutes);
+app.use(`${BASE_URL}/products`, productRoutes);
+app.use(`${BASE_URL}/reservations`, reservationRoutes);
+app.use(`${BASE_URL}/orders`, orderRoutes);
+app.use(`${BASE_URL}/tables`, tableRoutes);
+app.use(`${BASE_URL}/events`, eventRoutes);
+app.use(`${BASE_URL}/orderDetails`, orderDetailRoutes);
+app.use(`${BASE_URL}/carts`, cartRoutes);
 
 app.get(`${BASE_URL}/health`, (req, res) => {
   res.status(200).json({

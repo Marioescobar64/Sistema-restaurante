@@ -30,14 +30,21 @@ const swaggerOptions = {
       schemas: {
         administration: {
           type: "object",
+          required: ["restaurantdName", "categoryType", "capacity"],
           properties: {
-            name: {
+            restaurantdName: {
               type: "string",
               description: "Nombre del restaurante",
             },
-            address: {
+            categoryType: {
               type: "string",
-              description: "Dirección del restaurante",
+              enum: ["FAMILIAR", "ROMANTICO", "GENERAL"],
+              description: "Tipo de categoría del restaurante",
+            },
+            capacity: {
+              type: "integer",
+              minimum: 1,
+              description: "Capacidad del restaurante",
             },
             photo: {
               type: "string",
@@ -238,43 +245,43 @@ const swaggerOptions = {
     ],
     tags: [
       {
-        name: "Administration",
+        name: "Administrations",
         description: "Gestión del restaurante",
       },
       {
-        name: "Menu",
+        name: "Menus",
         description: "Gestor de menus del restaurante",
       },
       {
-        name: "Product",
+        name: "Products",
         description: "Gestor de productos y platillos",
       },
       {
-        name: "Table",
+        name: "Tables",
         description: "Gestión de las mesas del restaurante",
       },
       {
-        name: "Order",
+        name: "Orders",
         description: "Gestión de los pedidos",
       },
       {
-        name: "OrderDetail",
+        name: "OrderDetails",
         description: "Gestión de los detalles del pedidos",
       },
       {
-        name: "Reservation",
+        name: "Reservations",
         description: "Gestión de reservaciones",
       },
       {
-        name: "Event",
+        name: "Events",
         description: "Gestión de eventos del restaurante",
       },
       {
-        name: "Maintenance",
+        name: "Maintenances",
         description: "Gestión de mantenimientos",
       },
       {
-        name: "Cart",
+        name: "Carts",
         description: "Gestión de carritos de compras",
       },
     ],
