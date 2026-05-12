@@ -11,7 +11,7 @@ export const getAdministrations = async (req, res) => {
     const administrations = await Administration.find(filter)
       .limit(limit * 1)
       .skip((page - 1) * limit)
-      .sort({ restaurantdName: 1 });
+      .sort({ restaurantName: 1 });
 
     const total = await Administration.countDocuments(filter);
 

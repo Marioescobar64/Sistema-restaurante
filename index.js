@@ -12,7 +12,7 @@ process.on('uncaughtException', (error) => {
 });
 
 // Promesas rechazadas o no manejadas
-process.on('uncaughtException', (reason, promise) => {
+process.on('unhandledRejection', (reason, promise) => {
     console.log(reason, promise);
     process.exit(1);
 });

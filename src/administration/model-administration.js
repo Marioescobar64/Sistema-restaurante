@@ -1,9 +1,9 @@
 'use strict';
 
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 
 const administrationSchema = new mongoose.Schema({
-        restaurantdName: {
+        restaurantName: {
         type: String,
         required: true,
         trim: true,
@@ -14,7 +14,7 @@ const administrationSchema = new mongoose.Schema({
         required: [true, 'El tipo de categoria es requerido'],
         enum: {
             values: ['FAMILIAR', 'ROMANTICO', 'GENERAL'],
-            message: 'Tipo de cateogria no valida',
+            message: 'Tipo de categoría no válida',
         },
     },
     // es la capacidad de personas sin incluir al personal en el restaurante
@@ -37,8 +37,8 @@ const administrationSchema = new mongoose.Schema({
 });
 
 administrationSchema.index({ isActive: 1  });
-administrationSchema.index({ restaurantdName: 1  });
-administrationSchema.index({ restaurantdName: 1, isActive: 1  });
+administrationSchema.index({ restaurantName: 1  });
+administrationSchema.index({ restaurantName: 1, isActive: 1  });
 
 
 

@@ -4,7 +4,7 @@ import { checkValidators } from "./check-validation.js";
 // Validaciones para crear Administration
 export const validateCreateAdministration = [
 
-    body('restaurantdName')
+    body('restaurantName')
         .trim()
         .notEmpty()
         .withMessage('El nombre del restaurante es requerido')
@@ -37,7 +37,7 @@ export const validateCreateAdministration = [
 // Validaciones para actualizar Administration
 export const validateUpdateAdministration = [
 
-    body('restaurantdName')
+    body('restaurantName')
         .optional()
         .trim()
         .isLength({ min: 2, max: 100 })

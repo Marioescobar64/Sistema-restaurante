@@ -20,6 +20,8 @@ import orderDetailRoutes from '../src/detallePedido/orderDetail-routes.js';
 import cartRoutes from '../src/cart/cart-router.js';
 
 const BASE_URL = '/papaluigi/v1';
+const LEGACY_BASE_URL = '/api/v1';
+const ROUTE_BASES = [BASE_URL, LEGACY_BASE_URL];
 
 // Configuracion de los middlewares (la aplicacion)
 const middlewares = (app) => {
@@ -33,23 +35,25 @@ const middlewares = (app) => {
 }
 
 // Rutas de integracion de todas las rutas
-const routes =(app) => {
-    app.use(`${BASE_URL}/administration`, administrationRoutes);
-    app.use(`${BASE_URL}/maintenance`, maintenanceRoutes);
-    app.use(`${BASE_URL}/menu`, menuRoutes);
-    app.use(`${BASE_URL}/product`, productRoutes);
-    app.use(`${BASE_URL}/reservation`, reservationRoutes);
-    app.use(`${BASE_URL}/order`, orderRoutes);
-    app.use(`${BASE_URL}/table`, tableRoutes);
-    app.use(`${BASE_URL}/event`, eventRoutes);
-    app.use(`${BASE_URL}/orderDetail`, orderDetailRoutes);
-    app.use(`${BASE_URL}/cart`, cartRoutes);
+const routes = (app) => {
+    ROUTE_BASES.forEach((base) => {
+        app.use(`${base}/administration`, administrationRoutes);
+        app.use(`${base}/maintenance`, maintenanceRoutes);
+        app.use(`${base}/menu`, menuRoutes);
+        app.use(`${base}/product`, productRoutes);
+        app.use(`${base}/reservation`, reservationRoutes);
+        app.use(`${base}/order`, orderRoutes);
+        app.use(`${base}/table`, tableRoutes);
+        app.use(`${base}/event`, eventRoutes);
+        app.use(`${base}/orderDetail`, orderDetailRoutes);
+        app.use(`${base}/cart`, cartRoutes);
+    });
 }
 
 // funcion para iniciar el servidor
-const initServer = async (app) => {
+const initServer = async () => {
     // Creacion de la instancia de la aplicacion
-    app = express();
+    const app = express();
     const PORT = process.env.PORT || 3001;
 
     try {
