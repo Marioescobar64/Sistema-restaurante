@@ -70,6 +70,10 @@ export const createMaintenance = async (req, res) => {
   try {
     const maintenanceData = req.body;
 
+    console.log('req.file completo:', req.file);
+    console.log('photo que se guarda:', req.file?.path);
+    maintenanceData.photo = req.file ? req.file.path : null;
+
     if (req.file) {
       const extension = req.file.path.split('.').pop();
       const filename = req.file.filename;
@@ -126,14 +130,7 @@ export const updateMaintenance = async (req, res) => {
         }
       }
 
-      const extension = req.file.path.split('.').pop();
-      const filename = req.file.filename;
-
-      const relativePath = filename.includes('maintenance/')
-        ? filename.substring(filename.indexOf('maintenance/'))
-        : filename;
-
-      updateData.photo = `${relativePath}.${extension}`;
+      updateData.photo = req.file.path;
     }
 
     const maintenance = await Maintenance.findByIdAndUpdate(id, updateData, {
