@@ -66,18 +66,7 @@ export const createMenu = async (req, res) => {
   try {
     const menuData = req.body;
 
-    if (req.file) {
-      const extension = req.file.path.split('.').pop();
-      const filename = req.file.filename;
-
-      const relativePath = filename.includes('menu/')
-        ? filename.substring(filename.indexOf('menu/'))
-        : filename;
-
-      menuData.photo = `${relativePath}.${extension}`;
-    } else {
-      menuData.photo = 'administration/saucer';
-    }
+    menuData.photo = req.file ? req.file.path : null;
 
     const menu = new Menu(menuData);
     await menu.save();
@@ -122,14 +111,7 @@ export const updateMenu = async (req, res) => {
         }
       }
 
-      const extension = req.file.path.split('.').pop();
-      const filename = req.file.filename;
-
-      const relativePath = filename.includes('menu/')
-        ? filename.substring(filename.indexOf('menu/'))
-        : filename;
-
-      updateData.photo = `${relativePath}.${extension}`;
+      updateData.photo = req.file.path;
     }
 
     const menu = await Menu.findByIdAndUpdate(id, updateData, {
