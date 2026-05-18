@@ -11,34 +11,44 @@ const productoSchema = new mongoose.Schema({
     },
     descripcion: {
         type: String,
-        required: [true, 'La descripción del producto es obligatoria'],
+        required: false, // <-- Cambiado a false para que no bloquee si no lo usas en el modal
         trim: true
+    },
+    cantidad: {
+        type: Number,
+        required: [true, 'La cantidad mínima es obligatoria'],
+        min: [0, 'La cantidad no puede ser menor a 0']
+    },
+    cantidadObtenida: {
+        type: Number,
+        required: [true, 'La cantidad obtenida es obligatoria'],
+        min: [0, 'La cantidad obtenida no puede ser menor a 0']
+    },
+    fechaExp: {
+        type: Date,
+        required: [true, 'La fecha de expiración es obligatoria']
     },
     precio: {
         type: Number,
         required: [true, 'El precio es obligatorio'],
-        // Aseguramos que el precio no sea un número negativo
         min: [0, 'El precio no puede ser menor a 0'] 
     },
     categoria: {
         type: String,
-        required: [true, 'La categoría es obligatoria'],
+        required: false, // <-- Cambiado a false temporalmente por si no lo envías
         trim: true
     },
-    // Siempre es buena idea agregar un campo para saber si el producto está disponible o no
     isActive: { 
         type: Boolean,
         default: true
     }
 }, {
-    // Agrega la fecha en que se creó y la última vez que se modificó
     timestamps: true 
 });
 
-// Ayuda a que las búsquedas por categoría, nombre o disponibilidad sean más rápidas
+// Índices para búsquedas rápidas
 productoSchema.index({ categoria: 1 });
 productoSchema.index({ nombre: 1 });
 productoSchema.index({ isActive: 1 });
 
-// Exportamos el modelo con el nombre 'Producto'
 export default mongoose.model('Producto', productoSchema);
