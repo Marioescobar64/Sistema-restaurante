@@ -29,7 +29,7 @@ const menuSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-        default: 'administration/saucer',
+        default: null,
     },
     isActive: {
         type: Boolean,
