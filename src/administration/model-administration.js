@@ -22,7 +22,35 @@ const administrationSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'La capacidad es requerida'],
         min: [1, 'La capacidad debe ser mayor a 0'],
-    },   
+    },
+    administrators: [
+        {
+            nombre: {
+                type: String,
+                required: [true, 'El nombre del usuario administrativo es obligatorio'],
+                trim: true,
+                maxLength: [80, 'El nombre no puede exceder los 80 caracteres']
+            },
+            apellido: {
+                type: String,
+                required: [true, 'El apellido del usuario administrativo es obligatorio'],
+                trim: true,
+                maxLength: [80, 'El apellido no puede exceder los 80 caracteres']
+            },
+            cargo: {
+                type: String,
+                required: [true, 'El cargo del usuario administrativo es obligatorio'],
+                trim: true,
+                maxLength: [80, 'El cargo no puede exceder los 80 caracteres']
+            },
+            rol: {
+                type: String,
+                required: [true, 'El rol del usuario administrativo es obligatorio'],
+                trim: true,
+                maxLength: [80, 'El rol no puede exceder los 80 caracteres']
+            }
+        }
+    ],
     photo: {
     type: String,
     // valor por defecto

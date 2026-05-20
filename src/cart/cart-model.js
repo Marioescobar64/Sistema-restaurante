@@ -6,14 +6,15 @@ const carritoSchema = new mongoose.Schema({
     orderId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Pedido',
-        required: [true, 'El pedido es obligatorio']
+        required: false,
     },
     items: [
         {
             menuItem: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Menu',
-                required: [true, 'El platillo es obligatorio']
+                required: [true, 'El platillo es obligatorio'],
+                alias: 'producto'
             },
             quantity: {
                 type: Number,
@@ -46,7 +47,9 @@ const carritoSchema = new mongoose.Schema({
         default: 'activo'
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 });
 
 function calculateCartTotals(items) {
@@ -60,31 +63,26 @@ function calculateCartTotals(items) {
     }, 0);
 }
 
-carritoSchema.pre('validate', function(next) {
+carritoSchema.pre('validate', function() {
     if (Array.isArray(this.items) && this.items.length) {
         this.total = calculateCartTotals(this.items);
     } else {
         this.total = 0;
     }
-    next();
 });
 
-carritoSchema.pre('findOneAndUpdate', function(next) {
+carritoSchema.pre('findOneAndUpdate', function() {
     const update = this.getUpdate();
-    if (!update) return next();
-
+    if (!update) return;
     const set = update.$set || update;
     if (Array.isArray(set.items)) {
         set.total = calculateCartTotals(set.items);
     }
-
     if (update.$set) {
         update.$set = set;
     } else {
         this.setUpdate(set);
     }
-
-    next();
 });
 
 carritoSchema.index({ orderId: 1 });

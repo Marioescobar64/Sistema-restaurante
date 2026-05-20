@@ -25,6 +25,39 @@ export const validateCreateAdministration = [
         .isInt({ min: 1 })
         .withMessage('La capacidad debe ser mayor a 0'),
 
+    body('administrators')
+        .optional()
+        .isArray()
+        .withMessage('Los administradores deben ser un arreglo'),
+
+    body('administrators.*.nombre')
+        .trim()
+        .notEmpty()
+        .withMessage('El nombre del usuario administrativo es requerido')
+        .isLength({ max: 80 })
+        .withMessage('El nombre no puede exceder los 80 caracteres'),
+
+    body('administrators.*.apellido')
+        .trim()
+        .notEmpty()
+        .withMessage('El apellido del usuario administrativo es requerido')
+        .isLength({ max: 80 })
+        .withMessage('El apellido no puede exceder los 80 caracteres'),
+
+    body('administrators.*.cargo')
+        .trim()
+        .notEmpty()
+        .withMessage('El cargo del usuario administrativo es requerido')
+        .isLength({ max: 80 })
+        .withMessage('El cargo no puede exceder los 80 caracteres'),
+
+    body('administrators.*.rol')
+        .trim()
+        .notEmpty()
+        .withMessage('El rol del usuario administrativo es requerido')
+        .isLength({ max: 80 })
+        .withMessage('El rol no puede exceder los 80 caracteres'),
+
     body('photo')
         .optional()
         .isString()
@@ -54,6 +87,39 @@ export const validateUpdateAdministration = [
         .withMessage('La capacidad debe ser un número')
         .isInt({ min: 1 })
         .withMessage('La capacidad debe ser mayor a 0'),
+
+    body('administrators')
+        .optional()
+        .isArray()
+        .withMessage('Los administradores deben ser un arreglo'),
+
+    body('administrators.*.nombre')
+        .trim()
+        .notEmpty()
+        .withMessage('El nombre del usuario administrativo es requerido')
+        .isLength({ max: 80 })
+        .withMessage('El nombre no puede exceder los 80 caracteres'),
+
+    body('administrators.*.apellido')
+        .trim()
+        .notEmpty()
+        .withMessage('El apellido del usuario administrativo es requerido')
+        .isLength({ max: 80 })
+        .withMessage('El apellido no puede exceder los 80 caracteres'),
+
+    body('administrators.*.cargo')
+        .trim()
+        .notEmpty()
+        .withMessage('El cargo del usuario administrativo es requerido')
+        .isLength({ max: 80 })
+        .withMessage('El cargo no puede exceder los 80 caracteres'),
+
+    body('administrators.*.rol')
+        .trim()
+        .notEmpty()
+        .withMessage('El rol del usuario administrativo es requerido')
+        .isLength({ max: 80 })
+        .withMessage('El rol no puede exceder los 80 caracteres'),
 
     body('photo')
         .optional()

@@ -5,14 +5,27 @@ import { checkValidators } from './check-validation.js';
 export const validateCreateCart = [
 
   body('orderId')
-    .notEmpty().withMessage('El pedido es obligatorio')
-    .isMongoId().withMessage('ID de pedido inválido'),
+     .optional({ checkFalsy: true })
+     .isMongoId().withMessage('ID de pedido inválido'),
 
   body('items')
-    .isArray({ min: 1 }).withMessage('Debe agregar al menos un producto'),
+    .isArray({ min: 1 }).withMessage('Debe agregar al menos un producto')
+    .custom(items => {
+      if (!Array.isArray(items)) return true;
+      for (const item of items) {
+        if (!item.menuItem && !item.producto) {
+          throw new Error('El platillo es obligatorio');
+        }
+      }
+      return true;
+    }),
 
   body('items.*.menuItem')
-    .notEmpty().withMessage('El platillo es obligatorio')
+    .optional()
+    .isMongoId().withMessage('ID de platillo inválido'),
+
+  body('items.*.producto')
+    .optional()
     .isMongoId().withMessage('ID de platillo inválido'),
 
   body('items.*.quantity')
