@@ -22,6 +22,7 @@ export const validateCreateCart = [
     .isFloat({ min: 0 }).withMessage('Precio inválido'),
 
   body('items.*.subtotal')
+    .optional()
     .isFloat({ min: 0 }).withMessage('Subtotal inválido'),
 
   body('total')

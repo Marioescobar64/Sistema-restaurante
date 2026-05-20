@@ -35,14 +35,27 @@ export const getEventoById = async (req, res) => {
   res.json({ success: true, data: evento });
 };
 
+function normalizeEventPayload(body) {
+  const payload = { ...body };
+  if (!payload.fechaInicio && payload.fecha) {
+    payload.fechaInicio = payload.fecha;
+  }
+  if (!payload.fecha && payload.fechaInicio) {
+    payload.fecha = payload.fechaInicio;
+  }
+  return payload;
+}
+
 export const createEvento = async (req, res) => {
-  const evento = new Evento(req.body);
+  const payload = normalizeEventPayload(req.body);
+  const evento = new Evento(payload);
   await evento.save();
   res.status(201).json({ success: true, data: evento });
 };
 
 export const updateEvento = async (req, res) => {
-  const evento = await Evento.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  const payload = normalizeEventPayload(req.body);
+  const evento = await Evento.findByIdAndUpdate(req.params.id, payload, { new: true, runValidators: true });
   if (!evento) return res.status(404).json({ success: false });
   res.json({ success: true, data: evento });
 };

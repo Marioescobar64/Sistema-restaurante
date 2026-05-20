@@ -17,6 +17,14 @@ export const validateCreateReserva = [
   body('mesa')
     .isInt({ min: 1 }).withMessage('Mesa inválida'),
 
+  body('mesaId')
+    .optional()
+    .isMongoId().withMessage('ID de mesa inválido'),
+
+  body('orderId')
+    .optional()
+    .isMongoId().withMessage('ID de pedido inválido'),
+
   body('fecha')
     .isISO8601().withMessage('Fecha inválida'),
 

@@ -14,24 +14,36 @@ const eventoSchema = new mongoose.Schema({
         required: [true, 'La descripción del evento es obligatoria'],
         trim: true
     },
-    fecha: {
+    fechaInicio: {
         type: Date,
-        required: [true, 'La fecha del evento es obligatoria']
+        required: [true, 'La fecha de inicio del evento es obligatoria']
+    },
+    fechaFin: {
+        type: Date,
+        required: [true, 'La fecha de finalización del evento es obligatoria']
     },
     horaInicio: {
-        type: String, // Ejemplo: "09:00 AM" o "14:00"
+        type: String,
         required: [true, 'La hora de inicio es obligatoria']
     },
     horaFin: {
-        type: String, // Ejemplo: "11:00 AM" o "16:00"
+        type: String,
         required: [true, 'La hora de finalización es obligatoria']
+    },
+    estado: {
+        type: String,
+        required: [true, 'El estado del evento es obligatorio'],
+        enum: {
+            values: ['Programado', 'En curso', 'Finalizado', 'Cancelado'],
+            message: '{VALUE} no es un estado válido. Usa: Programado, En curso, Finalizado o Cancelado'
+        },
+        default: 'Programado'
     },
     observaciones: {
         type: String,
         trim: true,
         default: 'Sin observaciones'
     },
-    // Mantengo el isActive por buena práctica de borrado lógico
     isActive: {
         type: Boolean,
         default: true
@@ -39,10 +51,9 @@ const eventoSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
-
-// Índices para búsquedas rápidas por nombre y fecha
+// Índices para búsquedas rápidas por nombre y fecha de inicio
 eventoSchema.index({ nombreEvento: 1 });
-eventoSchema.index({ fecha: 1 });
+eventoSchema.index({ fechaInicio: 1 });
 eventoSchema.index({ isActive: 1 });
 
 // Exportamos el modelo con el nombre 'Evento'

@@ -15,7 +15,7 @@ export const validateCreateMesa = [
 
   body('estado')
     .optional()
-    .isIn(['Disponible', 'Ocupada', 'Reservada'])
+    .isIn(['Disponible', 'Ocupada', 'Reservada', 'Mantenimiento'])
     .withMessage('Estado inválido'),
 
   checkValidators,

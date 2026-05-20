@@ -26,10 +26,9 @@ const mesaSchema = new mongoose.Schema({
     estado: {
         type: String,
         required: [true, 'El estado de la mesa es obligatorio'],
-        // Solo permite estos tres estados específicos
         enum: {
-            values: ['Disponible', 'Ocupada', 'Reservada'],
-            message: '{VALUE} no es un estado válido. Usa: Disponible, Ocupada o Reservada'
+            values: ['Disponible', 'Ocupada', 'Reservada', 'Mantenimiento'],
+            message: '{VALUE} no es un estado válido. Usa: Disponible, Ocupada, Reservada o Mantenimiento'
         },
         default: 'Disponible'
     },

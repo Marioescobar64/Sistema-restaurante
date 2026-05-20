@@ -3,13 +3,11 @@
 import mongoose from 'mongoose';
 
 const reservaSchema = new mongoose.Schema({
-    
-        eventoId: {
+    eventoId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Event',
+        ref: 'Evento',
         required: [true, 'El evento es obligatorio']
     },
-
     descripcion: {
         type: String,
         required: [true, 'La descripción de la reserva es obligatoria'],
@@ -20,8 +18,12 @@ const reservaSchema = new mongoose.Schema({
         required: [true, 'El nombre del usuario o cliente es obligatorio'],
         trim: true
     },
+    mesaId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Mesa'
+    },
     mesa: {
-        type: Number, // Guardamos el número de la mesa asignada
+        type: Number,
         required: [true, 'El número de mesa es obligatorio']
     },
     fecha: {
@@ -29,7 +31,7 @@ const reservaSchema = new mongoose.Schema({
         required: [true, 'La fecha de la reserva es obligatoria']
     },
     hora: {
-        type: String, // Ejemplo: "19:30"
+        type: String,
         required: [true, 'La hora de la reserva es obligatoria']
     },
     cantidadPersonas: {
@@ -40,6 +42,15 @@ const reservaSchema = new mongoose.Schema({
             message: '{VALUE} debe ser un número entero'
         },
         min: [1, 'Debe haber al menos 1 persona para la reserva']
+    },
+    orderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Pedido'
+    },
+    resumenPedido: {
+        nombrePedido: String,
+        total: Number,
+        estado: String
     },
     estado: {
         type: String,
@@ -66,6 +77,9 @@ const reservaSchema = new mongoose.Schema({
 reservaSchema.index({ fecha: 1 });
 reservaSchema.index({ estado: 1 });
 reservaSchema.index({ usuario: 1 });
+reservaSchema.index({ eventoId: 1 });
+reservaSchema.index({ mesaId: 1 });
+reservaSchema.index({ orderId: 1 });
 
 // Exportamos el modelo
 export default mongoose.model('Reserva', reservaSchema);
