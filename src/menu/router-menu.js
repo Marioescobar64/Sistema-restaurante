@@ -19,38 +19,115 @@ import { cleanupUploadedFileOnFinish } from '../../middlewares/delete-file-on-er
 
 const router = Router();
 
-// ====================
-// RUTAS GET
-// ====================
+/**
+ * @swagger
+ * tags:
+ *   name: Menus
+ *   description: Endpoints para la gestión de menús
+ */
 
-// Obtener todas las mesas (paginación + filtros)
+// ==========================================
+//                   GET
+// ==========================================
+
+/**
+ * @swagger
+ * /menus/:
+ *   get:
+ *     summary: Obtener lista de menús
+ *     tags: [Menus]
+ *     responses:
+ *       200:
+ *         description: Lista de menús obtenida exitosamente
+ */
 router.get('/', getMenus);
 
-// Obtener mesa por ID
+/**
+ * @swagger
+ * /menus/{id}:
+ *   get:
+ *     summary: Obtener un menú por su ID
+ *     tags: [Menus]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del menú a buscar
+ *     responses:
+ *       200:
+ *         description: Menú obtenido exitosamente
+ *       404:
+ *         description: Menú no encontrado
+ */
 router.get(
   '/:id',
   validateGetMenuById,
   getMenuById
 );
 
-// ====================
-// RUTAS POST
-// ====================
+// ==========================================
+//                   POST
+// ==========================================
 
-// Crear mesa
+/**
+ * @swagger
+ * /menus/:
+ *   post:
+ *     summary: Crear nuevo menú
+ *     tags: [Menus]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             $ref: '#/components/schemas/menu'
+ *     responses:
+ *       201:
+ *         description: Menú creado exitosamente
+ *       400:
+ *         description: Error de validación en los datos enviados
+ */
 router.post(
   '/',
-  uploadFieldImage.single('photo'), // campo del form-data: photo
+  uploadFieldImage.single('photo'),
   cleanupUploadedFileOnFinish,
   validateCreateMenu,
   createMenu
 );
 
-// ====================
-// RUTAS PUT
-// ====================
+// ==========================================
+//                   PUT
+// ==========================================
 
-// Actualizar mesa
+/**
+ * @swagger
+ * /menus/{id}:
+ *   put:
+ *     summary: Actualizar información de un menú
+ *     tags: [Menus]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del menú a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             $ref: '#/components/schemas/menu'
+ *     responses:
+ *       200:
+ *         description: Menú actualizado exitosamente
+ *       400:
+ *         description: Error de validación
+ *       404:
+ *         description: Menú no encontrado
+ */
 router.put(
   '/:id',
   uploadFieldImage.single('photo'),
@@ -58,14 +135,50 @@ router.put(
   updateMenu
 );
 
-// Activar mesa
+/**
+ * @swagger
+ * /menus/{id}/activate:
+ *   put:
+ *     summary: Activar un menú
+ *     tags: [Menus]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del menú a activar
+ *     responses:
+ *       200:
+ *         description: Estado del menú cambiado a activado
+ *       404:
+ *         description: Menú no encontrado
+ */
 router.put(
   '/:id/activate',
   validateMenuStatusChange,
   changeMenuStatus
 );
 
-// Desactivar mesa
+/**
+ * @swagger
+ * /menus/{id}/deactivate:
+ *   put:
+ *     summary: Desactivar un menú
+ *     tags: [Menus]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del menú a desactivar
+ *     responses:
+ *       200:
+ *         description: Estado del menú cambiado a desactivado
+ *       404:
+ *         description: Menú no encontrado
+ */
 router.put(
   '/:id/deactivate',
   validateMenuStatusChange,
