@@ -2,6 +2,38 @@
 
 trello si no tiene una cuenta cree una https://trello.com/invite/b/699133aae8f080a7e045aef9/ATTI3e52ddc47f2a937134a80296c68989c81334A7A5/papas-lugui
 
+## Roles y permisos
+
+Se agregaron tres perfiles de acceso para el panel del restaurante:
+
+- Gerente: puede acceder a pedidos, mesas, carrito, eventos, reservaciones, personal y stock.
+- Chef: solo puede ver y gestionar pedidos.
+- Mesero: puede ver pedidos, mesas y carrito.
+
+### Login de prueba
+
+Los usuarios de demostración son:
+
+- Gerente: gerente@papaluigi.com / Gerente123!
+- Chef: chef@papaluigi.com / Chef123!
+- Mesero: mesero@papaluigi.com / Mesero123!
+
+Endpoint para iniciar sesión:
+
+- POST /papaluigi/v1/auth/login
+
+Respuesta esperada:
+
+- token JWT
+- datos del usuario
+- permisos por módulo
+
+### Probar permisos
+
+- Con el token del gerente, se podrán consultar eventos, reservaciones y rutas de administración.
+- Con el token del chef, solo estarán habilitadas las rutas de pedidos.
+- Con el token del mesero, estarán habilitadas las rutas de pedidos, mesas y carrito.
+
 
 Proyecto desarrollado con:
 

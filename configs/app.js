@@ -18,6 +18,7 @@ import tableRoutes from '../src/mesa/table-routes.js';
 import eventRoutes from '../src/evento/event-routes.js';
 import orderDetailRoutes from '../src/detallePedido/orderDetail-routes.js';
 import cartRoutes from '../src/cart/cart-router.js';
+import authRoutes from '../src/auth/auth-routes.js';
 
 const BASE_URL = '/papaluigi/v1';
 const LEGACY_BASE_URL = '/api/v1';
@@ -37,6 +38,7 @@ const middlewares = (app) => {
 // Rutas de integracion de todas las rutas
 const routes = (app) => {
     ROUTE_BASES.forEach((base) => {
+        app.use(`${base}/auth`, authRoutes);
         app.use(`${base}/administration`, administrationRoutes);
         app.use(`${base}/maintenance`, maintenanceRoutes);
         app.use(`${base}/menu`, menuRoutes);

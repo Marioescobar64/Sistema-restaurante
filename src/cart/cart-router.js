@@ -13,14 +13,17 @@ import {
   validateCartStatusChange,
   validateGetCartById
 } from '../../middlewares/validation-cart.js';
+import { authenticate, authorize } from '../../middlewares/auth-middleware.js';
 
 const router = Router();
 
 // GET
-router.get('/', getCarts);
+router.get('/', authenticate, authorize(['cart']), getCarts);
 
 router.get(
   '/:id',
+  authenticate,
+  authorize(['cart']),
   validateGetCartById,
   getCartById
 );
@@ -28,6 +31,8 @@ router.get(
 // POST
 router.post(
   '/',
+  authenticate,
+  authorize(['cart']),
   validateCreateCart,
   createCart
 );
@@ -35,19 +40,23 @@ router.post(
 // PUT
 router.put(
   '/:id',
+  authenticate,
+  authorize(['cart']),
   validateUpdateCartRequest,
   updateCart
 );
 
 router.put(
   '/:id/activate',
-  validateCartStatusChange,
+  authenticate,
+  authorize(['cart']),
   changeCartStatus
 );
 
 router.put(
   '/:id/deactivate',
-  validateCartStatusChange,
+  authenticate,
+  authorize(['cart']),
   changeCartStatus
 );
 
