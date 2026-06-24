@@ -13,17 +13,15 @@ import {
   validatePedidoStatusChange,
   validateGetPedidoById
 } from '../../middlewares/order-validation.js';
-import { authenticate, authorize } from '../../middlewares/auth-middleware.js';
+
 
 const router = Router();
 
 // GET
-router.get('/', authenticate, authorize(['orders']), getPedidos);
+router.get('/', getPedidos);
 
 router.get(
   '/:id',
-  authenticate,
-  authorize(['orders']),
   validateGetPedidoById,
   getPedidoById
 );
@@ -31,8 +29,6 @@ router.get(
 // POST
 router.post(
   '/',
-  authenticate,
-  authorize(['orders']),
   validateCreatePedido,
   createPedido
 );
@@ -40,24 +36,18 @@ router.post(
 // PUT
 router.put(
   '/:id',
-  authenticate,
-  authorize(['orders']),
   validateUpdatePedidoRequest,
   updatePedido
 );
 
 router.put(
   '/:id/activate',
-  authenticate,
-  authorize(['orders']),
   validatePedidoStatusChange,
   changePedidoStatus
 );
 
 router.put(
   '/:id/deactivate',
-  authenticate,
-  authorize(['orders']),
   validatePedidoStatusChange,
   changePedidoStatus
 );

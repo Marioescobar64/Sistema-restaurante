@@ -1,9 +1,6 @@
 // importaciones
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import { initServer } from "./configs/app.js";
-
-// Configuracion de variables de entorno
-dotenv.config();
 
 // Errores no capturados
 process.on('uncaughtException', (error) => {

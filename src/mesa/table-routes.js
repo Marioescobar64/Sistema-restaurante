@@ -13,17 +13,15 @@ import {
   validateMesaStatusChange,
   validateGetMesaById
 } from '../../middlewares/table-validation.js';
-import { authenticate, authorize } from '../../middlewares/auth-middleware.js';
+
 
 const router = Router();
 
 // GET
-router.get('/', authenticate, authorize(['tables']), getMesas);
+router.get('/', getMesas);
 
 router.get(
   '/:id',
-  authenticate,
-  authorize(['tables']),
   validateGetMesaById,
   getMesaById
 );
@@ -31,8 +29,6 @@ router.get(
 // POST
 router.post(
   '/',
-  authenticate,
-  authorize(['tables']),
   validateCreateMesa,
   createMesa
 );
@@ -40,24 +36,18 @@ router.post(
 // PUT
 router.put(
   '/:id',
-  authenticate,
-  authorize(['tables']),
   validateUpdateMesaRequest,
   updateMesa
 );
 
 router.put(
   '/:id/activate',
-  authenticate,
-  authorize(['tables']),
   validateMesaStatusChange,
   changeMesaStatus
 );
 
 router.put(
   '/:id/deactivate',
-  authenticate,
-  authorize(['tables']),
   validateMesaStatusChange,
   changeMesaStatus
 );

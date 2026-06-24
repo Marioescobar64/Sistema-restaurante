@@ -1,12 +1,11 @@
 import jwt from 'jsonwebtoken';
 import { DEMO_USERS, getRolePermissions, hashPassword, verifyPassword } from './auth-utils.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'papaluigi-dev-secret';
-
 const getUserByEmail = (email) => DEMO_USERS.find((user) => user.email.toLowerCase() === String(email).toLowerCase());
 
 export const login = async (req, res) => {
   try {
+    const JWT_SECRET = process.env.JWT_SECRET || 'papaluigi-dev-secret';
     const { email, password } = req.body;
 
     if (!email || !password) {

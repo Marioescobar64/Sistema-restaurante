@@ -1,8 +1,7 @@
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'papaluigi-dev-secret';
-
 export const authenticate = (req, res, next) => {
+  const JWT_SECRET = process.env.JWT_SECRET || 'papaluigi-dev-secret';
   const authHeader = req.headers.authorization || '';
   const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
 
@@ -34,7 +33,10 @@ export const authorize = (allowedModules = []) => (req, res, next) => {
     });
   }
 
-  const userModules = req.user.modules || [];
+  let userModules = req.user.modules || [];
+  if (typeof userModules === 'string') {
+    userModules = userModules.split(',').map(m => m.trim());
+  }
   const hasAccess = allowedModules.every((moduleName) => userModules.includes(moduleName));
 
   if (!hasAccess) {
