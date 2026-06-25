@@ -19,6 +19,7 @@ import eventRoutes from '../src/evento/event-routes.js';
 import orderDetailRoutes from '../src/detallePedido/orderDetail-routes.js';
 import cartRoutes from '../src/cart/cart-router.js';
 import authRoutes from '../src/auth/auth-routes.js';
+import branchRoutes from '../src/branch/router-branch.js';
 
 const BASE_URL = '/papaluigi/v1';
 const LEGACY_BASE_URL = '/api/v1';
@@ -49,6 +50,7 @@ const routes = (app) => {
         app.use(`${base}/event`, eventRoutes);
         app.use(`${base}/orderDetail`, orderDetailRoutes);
         app.use(`${base}/cart`, cartRoutes);
+        app.use(`${base}/branch`, branchRoutes);
     });
 }
 
