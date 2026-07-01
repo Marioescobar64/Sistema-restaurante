@@ -3,6 +3,11 @@
 import mongoose from 'mongoose';
 
 const pedidoSchema = new mongoose.Schema({
+    cliente: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: [true, 'El cliente es obligatorio para asignar el pedido']
+    },
     nombrePedido: {
         type: String,
         required: [true, 'El nombre del pedido es obligatorio'],
