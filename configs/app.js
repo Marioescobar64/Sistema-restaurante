@@ -6,6 +6,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { corsOptions } from './cors-configuration.js';
 import { dbConnection } from './db.js';
+import seedSuperAdmin from '../src/scripts/seed-superadmin.js';
 
 // Rutas
 import administrationRoutes from '../src/administration/router-administration.js';
@@ -21,6 +22,8 @@ import cartRoutes from '../src/cart/cart-router.js';
 import authRoutes from '../src/auth/auth-routes.js';
 import branchRoutes from '../src/branch/router-branch.js';
 import loyaltyRoutes from '../src/loyalty/loyalty-routes.js';
+import userRoutes from '../src/user/user-routes.js';
+
 
 const BASE_URL = '/papaluigi/v1';
 const LEGACY_BASE_URL = '/api/v1';
@@ -53,6 +56,7 @@ const routes = (app) => {
         app.use(`${base}/cart`, cartRoutes);
         app.use(`${base}/branch`, branchRoutes);
         app.use(`${base}/loyalty`, loyaltyRoutes);
+        app.use(`${base}/users`, userRoutes);
     });
 }
 
@@ -63,10 +67,11 @@ const initServer = async () => {
     const PORT = process.env.PORT || 3001;
 
     try {
-        dbConnection();
+        await dbConnection();
         middlewares(app);
         routes(app);
-        
+        await seedSuperAdmin(); // Llamada a la función para sembrar el super admin
+
         app.listen(PORT, () => {
             console.log(`Servidor corriendo en el puerto ${PORT}`);
             console.log(`Base URL: http://localhost:${PORT}${BASE_URL}`)

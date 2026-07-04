@@ -17,8 +17,23 @@ const branchSchema = new mongoose.Schema({
         default: 'Restaurante'
     },
     assignedStaff: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Administration'
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: [true, 'El usuario asignado es requerido']
+        },
+        role: {
+            type: String,
+            required: [true, 'El rol del usuario asignado es requerido'],
+            enum: {
+                values: ['GERENTE_ROLE', 'CHEF_ROLE', 'MESERO_ROLE'],
+                message: 'Rol de personal no válido'
+            }
+        },
+        assignedAt: {
+            type: Date,
+            default: Date.now,
+        }
     }],
     isActive: {
         type: Boolean,

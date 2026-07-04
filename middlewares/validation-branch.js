@@ -24,7 +24,20 @@ export const validateUpdateBranch = [
 
 export const validateAssignStaff = [
     param('id').isMongoId().withMessage('No es un ID válido de Mongo para la sucursal'),
-    body('staffId').notEmpty().withMessage('El ID del staff es requerido'),
+    body('role').notEmpty().withMessage('El rol es requerido').isIn(['GERENTE_ROLE', 'CHEF_ROLE', 'MESERO_ROLE']).withMessage('El rol debe ser GERENTE_ROLE, CHEF_ROLE o MESERO_ROLE'),
+    body('staffId').optional({ nullable: true }).isMongoId().withMessage('El ID del staff debe ser un ObjectId válido'),
+    body('staffIds').optional({ nullable: true }).isArray({ min: 1 }).withMessage('staffIds debe ser un arreglo con al menos un ID'),
+    body('staffIds.*').optional().isMongoId().withMessage('Cada ID de staff debe ser un ObjectId válido'),
+    body().custom((value, { req }) => {
+        const hasSingleStaff = Boolean(req.body.staffId);
+        const hasMultipleStaff = Array.isArray(req.body.staffIds) && req.body.staffIds.length > 0;
+
+        if (!hasSingleStaff && !hasMultipleStaff) {
+            throw new Error('Se requiere al menos un ID de personal para asignar a la sucursal');
+        }
+
+        return true;
+    }),
     checkValidators
 ];
 
