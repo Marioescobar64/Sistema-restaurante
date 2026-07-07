@@ -3,9 +3,12 @@ import Cart from './cart-model.js';
 
 export const getCarts = async (req, res) => {
   try {
-    const { page = 1, limit = 10, status = 'activo' } = req.query;
+    const { page = 1, limit = 10, status = 'activo', usuario } = req.query;
 
     const filter = { status };
+    if (usuario) {
+      filter.usuario = usuario;
+    }
 
     const carts = await Cart.find(filter)
       .populate('orderId')

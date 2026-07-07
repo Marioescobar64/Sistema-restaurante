@@ -33,9 +33,39 @@ async function resolveMesaData(payload) {
 
 export const getReservas = async (req, res) => {
   try {
-    const { page = 1, limit = 10, isActive = true } = req.query;
+    const { page = 1, limit = 10, isActive = true, usuario } = req.query;
+
+    // --- OPCIÓN B: Lógica perezosa de expiración ---
+    // Buscar reservas activas y marcarlas como Finalizadas si ya pasó su fecha/hora
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    
+    const activeReservations = await Reserva.find({ estado: 'Activa' });
+    for (const resItem of activeReservations) {
+      const resDate = new Date(resItem.fecha);
+      const resDateOnly = new Date(resDate.getFullYear(), resDate.getMonth(), resDate.getDate());
+      
+      let expired = false;
+      if (resDateOnly < today) {
+        expired = true;
+      } else if (resDateOnly.getTime() === today.getTime()) {
+        const [hr, min] = (resItem.hora || "00:00").split(':').map(Number);
+        if (now.getHours() > hr || (now.getHours() === hr && now.getMinutes() > min)) {
+          expired = true;
+        }
+      }
+
+      if (expired) {
+        resItem.estado = 'Finalizada';
+        await resItem.save();
+      }
+    }
+    // ----------------------------------------------
 
     const filter = { isActive };
+    if (usuario) {
+      filter.usuario = usuario;
+    }
 
     const reservas = await Reserva.find(filter)
       .populate('eventoId')
@@ -75,6 +105,22 @@ export const createReserva = async (req, res) => {
   try {
     let payload = { ...req.body };
     payload = await resolveMesaData(payload);
+
+    // Verificar conflictos (misma fecha, hora y mesa)
+    const conflicto = await Reserva.findOne({
+      fecha: payload.fecha,
+      hora: payload.hora,
+      mesa: payload.mesa,
+      estado: { $ne: 'Cancelada' }
+    });
+
+    if (conflicto) {
+      return res.status(400).json({
+        success: false,
+        message: `La mesa ${payload.mesa} ya está reservada para el día ${payload.fecha} a las ${payload.hora}. Por favor, elige otra mesa u otro horario.`
+      });
+    }
+
     if (payload.orderId) {
       payload.resumenPedido = await buildOrderSummary(payload.orderId);
     }

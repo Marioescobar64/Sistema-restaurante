@@ -3,6 +3,12 @@
 import mongoose from 'mongoose';
 
 const carritoSchema = new mongoose.Schema({
+    usuario: {
+        type: String,
+        required: false,
+        trim: true,
+        default: 'Cliente'
+    },
     orderId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Pedido',
