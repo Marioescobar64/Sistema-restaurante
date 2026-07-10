@@ -2,6 +2,7 @@
 import Reserva from './reservation-model.js';
 import Pedido from '../pedido/order-model.js';
 import Mesa from '../mesa/table-model.js';
+import Evento from '../evento/event-model.js';
 
 async function buildOrderSummary(orderId) {
   if (!orderId) return undefined;
@@ -42,7 +43,10 @@ export const getReservas = async (req, res) => {
     
     const activeReservations = await Reserva.find({ estado: 'Activa' });
     for (const resItem of activeReservations) {
+      if (!resItem.fecha) continue;
       const resDate = new Date(resItem.fecha);
+      if (isNaN(resDate.getTime())) continue;
+
       const resDateOnly = new Date(resDate.getFullYear(), resDate.getMonth(), resDate.getDate());
       
       let expired = false;

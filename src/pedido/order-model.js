@@ -3,10 +3,10 @@
 import mongoose from 'mongoose';
 
 const pedidoSchema = new mongoose.Schema({
-    cliente: {
+    mesa: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: [true, 'El cliente es obligatorio para asignar el pedido']
+        ref: 'Mesa',
+        required: [true, 'La mesa es obligatoria para asignar el pedido']
     },
     nombrePedido: {
         type: String,
