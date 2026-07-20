@@ -13,7 +13,7 @@ import {
   validatePedidoStatusChange,
   validateGetPedidoById
 } from '../../middlewares/order-validation.js';
-
+import { authenticate } from '../../middlewares/auth-middleware.js';
 
 const router = Router();
 
@@ -29,6 +29,7 @@ router.get(
 // POST
 router.post(
   '/',
+  authenticate,
   validateCreatePedido,
   createPedido
 );

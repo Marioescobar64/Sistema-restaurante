@@ -1,0 +1,28 @@
+{
+  "workbench.colorCustomizations": {
+    "window.activeBorder": "#8E24AA",
+    "window.inactiveBorder": "#8E24AA",
+    "activityBar.border": "#8E24AA",
+    "sideBar.border": "#8E24AA",
+    "panel.border": "#8E24AA",
+    "editorGroup.border": "#8E24AA",
+    "tab.activeBorderTop": "#8E24AA",
+    "tab.hoverBackground": "rgba(142, 36, 170, 0.12)",
+    "tab.hoverBorder": "rgba(142, 36, 170, 0.7)",
+    "tab.unfocusedHoverBackground": "rgba(142, 36, 170, 0.12)",
+    "tab.unfocusedHoverBorder": "rgba(142, 36, 170, 0.7)",
+    "[rainbow]": {
+      "window.activeBorder": "#8E24AA",
+      "window.inactiveBorder": "#8E24AA",
+      "activityBar.border": "#8E24AA",
+      "sideBar.border": "#8E24AA",
+      "panel.border": "#8E24AA",
+      "editorGroup.border": "#8E24AA",
+      "tab.activeBorderTop": "#8E24AA",
+      "tab.hoverBackground": "rgba(142, 36, 170, 0.12)",
+      "tab.hoverBorder": "rgba(142, 36, 170, 0.7)",
+      "tab.unfocusedHoverBackground": "rgba(142, 36, 170, 0.12)",
+      "tab.unfocusedHoverBorder": "rgba(142, 36, 170, 0.7)"
+    }
+  }
+}
